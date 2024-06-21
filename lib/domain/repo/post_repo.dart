@@ -30,6 +30,7 @@ class PostRepositoryImpl extends PostRepository {
         return responseList;
       }
       return null;
+    // ignore: deprecated_member_use
     } on dio.DioError catch (e) {
       debugPrint(e.message);
       return null;
@@ -52,6 +53,7 @@ class PostRepositoryImpl extends PostRepository {
         return aiResponse;
       }
       return null;
+    // ignore: deprecated_member_use
     } on dio.DioError catch (e) {
       debugPrint(e.message);
       return null;

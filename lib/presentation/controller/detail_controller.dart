@@ -29,6 +29,8 @@ class DetailController extends GetxController {
   }
 
   void fetchPostbyId() async {
+    seletedPost =
+        PostModel(userId: 0, id: 0, title: 'No post found!', body: '');
     isLoading(true);
     final result = await _postRepository
         .getOnePost(postId)
@@ -36,7 +38,6 @@ class DetailController extends GetxController {
     isLoading(false);
     if (result != null) {
       seletedPost = result;
-      update();
     } else {
       appSnackbar('', 'No data found!');
     }

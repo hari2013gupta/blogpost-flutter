@@ -17,8 +17,11 @@ class PostController extends GetxController {
   }
 
   fetchPosts() async {
+    postList.clear();
     isLoading(true);
-    final result = await _postRepository.getAllPosts().onError((error, stackTrace) => null);
+    final result = await _postRepository
+        .getAllPosts()
+        .onError((error, stackTrace) => null);
     isLoading(false);
     if (result != null) {
       postList.clear();

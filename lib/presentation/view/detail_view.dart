@@ -23,11 +23,11 @@ class DetailView extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: GetBuilder<DetailController>(
-            init: c,
-            builder: (controller) => controller.isLoading.isTrue
+        child: Obx(
+          ()=>
+          c.isLoading.isTrue
                 ? const CircularProgressIndicator()
-                : PostItemWidget(item: controller.seletedPost)),
+                : PostItemWidget(item: c.seletedPost)),
       ),
     );
   }

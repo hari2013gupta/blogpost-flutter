@@ -10,7 +10,6 @@ class DioClientImpl extends DioClient {
 
   @override
   Future getRequest(String url, Map<String, dynamic>? params) async {
-    // TODO: implement getRequest
     Response response;
     try {
       response = await _dio.get(url, queryParameters: params);
@@ -29,8 +28,6 @@ class DioClientImpl extends DioClient {
 
   @override
   Future<DioClient> init() async {
-    // TODO: implement init
-
     _dio = Dio();
     _dio.options.connectTimeout = connectTimeout;
     _dio.options.receiveTimeout = receiveTimeout;
