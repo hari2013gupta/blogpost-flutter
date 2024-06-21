@@ -1,4 +1,4 @@
-import 'package:flutter_test21jun/common/app_const.dart';
+import 'package:flutter_test21jun/app/app_const.dart';
 import 'package:flutter_test21jun/data/model/post_model.dart';
 import 'package:flutter_test21jun/domain/repo/post_repo.dart';
 import 'package:get/get.dart';

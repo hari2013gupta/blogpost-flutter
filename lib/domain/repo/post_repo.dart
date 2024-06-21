@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
-import 'package:flutter_test21jun/common/app_const.dart';
+import 'package:flutter_test21jun/app/app_const.dart';
 import 'package:flutter_test21jun/data/model/post_model.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +30,7 @@ class PostRepositoryImpl extends PostRepository {
         return responseList;
       }
       return null;
-    // ignore: deprecated_member_use
+      // ignore: deprecated_member_use
     } on dio.DioError catch (e) {
       debugPrint(e.message);
       return null;
@@ -47,13 +47,11 @@ class PostRepositoryImpl extends PostRepository {
       response =
           await _client.getRequest('${ApiConstants.postApi}/$index', params);
 
-      debugPrint(response.toString());
       if (response.statusCode == 200) {
-        final aiResponse = PostModel.fromJson(response.data);
-        return aiResponse;
+        return PostModel.fromJson(response.data);
       }
       return null;
-    // ignore: deprecated_member_use
+      // ignore: deprecated_member_use
     } on dio.DioError catch (e) {
       debugPrint(e.message);
       return null;

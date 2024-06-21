@@ -1,38 +1,34 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test21jun/common/app_const.dart';
-import 'package:flutter_test21jun/presentation/app_route.dart';
 import 'package:get/get.dart';
 
+import 'app.dart';
 import 'domain/client/dio_client.dart';
 import 'domain/client/dio_client_impl.dart';
-import 'presentation/binding/initial_binding.dart';
 
-void main() async {
-  await runZonedGuarded(() async {
+void main() {
+  runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    // dio clinet service
-    await Get.putAsync<DioClient>(() => DioClientImpl().init());
-    return runApp(const MyApp());
-  }, (error, stack) {});
+    initServices();
+
+    FlutterError.onError = (FlutterErrorDetails details) {
+      catchUnhandledExceptions(details.exception, details.stack);
+    };
+    runApp(const App());
+  }, (error, stack) => catchUnhandledExceptions);
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void catchUnhandledExceptions(Object error, StackTrace? stack) {
+  // FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  debugPrintStack(stackTrace: stack, label: error.toString());
+}
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Blog Post Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      initialBinding: InitialBinding(),
-      initialRoute: initialRoute,
-      getPages: setRoute,
-    );
+initServices() async {
+  if (kDebugMode) {
+    print('Starting services ...');
   }
+  // dio clinet service
+  await Get.putAsync<DioClient>(() => DioClientImpl().init());
 }

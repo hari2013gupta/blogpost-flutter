@@ -20,7 +20,10 @@ class PostItemWidget extends StatelessWidget {
           Row(
             children: [
               Text('${item.id}. ',
-                  style: const TextStyle(fontSize: 20, color: Colors.green)),
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold)),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(item.title, style: const TextStyle(fontSize: 20)),
@@ -29,7 +32,7 @@ class PostItemWidget extends StatelessWidget {
           ),
           const Divider(),
           Text(item.body,
-              style: const TextStyle(fontSize: 10, color: Colors.grey)),
+              style: const TextStyle(fontSize: 12, color: Colors.grey)),
         ],
       ),
     );
