@@ -18,7 +18,7 @@ class ApiConstants {
 appSnackbar(title, message) => Get.snackbar(
       title ?? 'Alert', message,
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.blueAccent,
       icon: const Icon(Icons.info_outline_rounded, color: Colors.white),
       colorText: Colors.white,
       borderColor: Colors.white, //use borderColor,radius,width simulteneously

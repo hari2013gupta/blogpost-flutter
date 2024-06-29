@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      enableLog: true, // can see getx log
+      enableLog: true, // can disable getx log
       initialBinding: InitialBinding(),
       initialRoute: initialRoute,
       getPages: setRoute,

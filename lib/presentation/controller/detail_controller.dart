@@ -18,8 +18,7 @@ class DetailController extends GetxController {
     _postRepository = Get.find<PostRepositoryImpl>();
     final args = Get.arguments;
     debugPrint('initial argument=$args');
-    seletedPost =
-        PostModel(uId: 0, id: 0, title: 'No post found!', body: '');
+    seletedPost = PostModel(uId: 0, id: 0, title: 'No post found!', body: '');
     if (args != null) {
       postId = args['post_id'];
       fetchPostbyId();
@@ -27,17 +26,20 @@ class DetailController extends GetxController {
   }
 
   void fetchPostbyId() async {
-    seletedPost =
-        PostModel(uId: 0, id: 0, title: 'No post found!', body: '');
+    seletedPost = PostModel(uId: 0, id: 0, title: 'No post found!', body: '');
     isLoading(true);
-    final result = await _postRepository
-        .getOnePost(postId)
-        .onError((error, stackTrace) => null);
+    await _postRepository.getOnePost(postId).then((result) {
+      if (result != null) {
+        seletedPost = result;
+      } else {
+        appSnackbar('Alert', 'No data found!');
+      }
+      isLoading(false);
+    }).onError((error, stackTrace) {
+      isLoading(false);
+      error.printError();
+      appSnackbar('Alert', 'Err: $error');
+    });
     isLoading(false);
-    if (result != null) {
-      seletedPost = result;
-    } else {
-      appSnackbar('', 'No data found!');
-    }
   }
 }

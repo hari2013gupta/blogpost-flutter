@@ -30,8 +30,7 @@ class PostRepositoryImpl extends PostRepository {
         return responseList;
       }
       return null;
-      // ignore: deprecated_member_use
-    } on dio.DioError catch (e) {
+    } on dio.DioException catch (e) {
       debugPrint(e.message);
       return null;
     } on Exception catch (e) {
@@ -43,6 +42,16 @@ class PostRepositoryImpl extends PostRepository {
   Future<PostModel?> getOnePost(int index) async {
     final dio.Response response;
     try {
+      // final formData = FormData.fromMap({
+      //   'name': 'dio',
+      //   'date': DateTime.now().toIso8601String(),
+      //   'file':
+      //       await MultipartFile.fromFile('./text.txt', filename: 'upload.txt'),
+      //   'files': [
+      //     await MultipartFile.fromFile('./text1.txt', filename: 'text1.txt'),
+      //     await MultipartFile.fromFile('./text2.txt', filename: 'text2.txt'),
+      //   ]
+      // });
       var params = {'id': index};
       response =
           await _client.getRequest('${ApiConstants.postApi}/$index', params);
@@ -51,8 +60,7 @@ class PostRepositoryImpl extends PostRepository {
         return PostModel.fromJson(response.data);
       }
       return null;
-      // ignore: deprecated_member_use
-    } on dio.DioError catch (e) {
+    } on dio.DioException catch (e) {
       debugPrint(e.message);
       return null;
     } on Exception catch (e) {

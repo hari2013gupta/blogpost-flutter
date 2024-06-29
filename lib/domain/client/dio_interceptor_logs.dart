@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-class DioLogInterceptor extends Interceptor {
+class DioInterceptorLogs extends Interceptor {
+  DioInterceptorLogs({this.printResponse = false});
+  final bool printResponse;
+
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     debugPrint(
@@ -15,16 +18,16 @@ class DioLogInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
+    final condition = printResponse ? response.data : '[RES_NOT_SHOWN]';
     debugPrint(
       'RESPONSE[${response.statusCode},${response.statusMessage}] => PATH: ${response.requestOptions.path}' // '\n=> HEADERS: ${response.headers}'
-      '=> DATA: [NOT SHOWN]', //${response.data}',
+      '=> DATA: $condition',
     );
     return super.onResponse(response, handler);
   }
 
   @override
-  // ignore: deprecated_member_use
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     debugPrint(
       'ERROR[${err.response?.statusCode},${err.response?.statusMessage}] => PATH: ${err.requestOptions.path}',
     );

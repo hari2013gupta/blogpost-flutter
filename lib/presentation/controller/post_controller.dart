@@ -19,15 +19,18 @@ class PostController extends GetxController {
   fetchPosts() async {
     postList.clear();
     isLoading(true);
-    final result = await _postRepository
-        .getAllPosts()
-        .onError((error, stackTrace) => null);
-    isLoading(false);
-    if (result != null) {
-      postList.clear();
-      postList.addAll(result);
-    } else {
-      appSnackbar('', 'No data found!');
-    }
+    await _postRepository.getAllPosts().then((value) {
+      isLoading(false);
+      if (value != null) {
+        postList.clear();
+        postList.addAll(value);
+      } else {
+        appSnackbar('Alert', 'No data found!');
+      }
+    }).onError((error, stackTrace) {
+      isLoading(false);
+      error.printError();
+      appSnackbar('Alert', 'Err: $error');
+    });
   }
 }
